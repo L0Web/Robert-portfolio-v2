@@ -50,7 +50,7 @@ export default function Header() {
             const parentRect = containerRef.current.getBoundingClientRect();
             const childRect = navRef.current.getBoundingClientRect();
 
-            const childIsOverflowing = (parentRect.left + parentRect.width) <= (childRect.left + childRect.width);
+            const childIsOverflowing = (parentRect.left + parentRect.width) > (childRect.left + childRect.width);
 
             setShowAlternativeNav(childIsOverflowing);
         };
