@@ -1,3 +1,5 @@
+"use client";
+
 import { globalLoadingContext } from "@/utils/globalLoadingContext";
 import { useContext } from "react";
 import { SlSocialBehance, SlSocialInstagram, SlSocialLinkedin, SlSocialTwitter } from "react-icons/sl"
