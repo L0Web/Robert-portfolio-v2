@@ -114,7 +114,7 @@ function ArtworkCategories() {
     )
 };
 
-export function SuspensedArtworkCategories() {
+export default function SuspensedArtworkCategories() {
     return (
         <Suspense>
             <ArtworkCategories />
