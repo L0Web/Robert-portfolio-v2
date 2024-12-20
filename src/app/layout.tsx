@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 import client from "@/apolloClient";
 import { GlobalLoadingContextProvider } from "@/utils/globalLoadingContext";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,7 +40,9 @@ export default function RootLayout({
         >
           <GlobalLoadingContextProvider>
             <Header />
-            {children}
+            <Suspense>
+              {children}
+            </Suspense>
             <Footer />
           </GlobalLoadingContextProvider>
         </body>
