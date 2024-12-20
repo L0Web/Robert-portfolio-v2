@@ -52,8 +52,6 @@ export default function Header() {
 
             const childIsOverflowing = (parentRect.left + parentRect.width) <= (childRect.left + childRect.width);
 
-            console.log(childIsOverflowing, parentRect.width + parentRect.left, childRect.width + childRect.left);
-
             setShowAlternativeNav(childIsOverflowing);
         };
         handleWindowResize();
@@ -75,7 +73,7 @@ export default function Header() {
                             </h2>
                         </Link>
                         <div className="h-8 lg:h-10 overflow-hidden">
-                            <div ref={navRef} className={`${hideNav ? 'translate-x-[calc(-100%_+_36px)] lg:translate-x-[calc(-100%_+_44px)]' : ''} transition-transform duration-500 ease-expo flex h-full`}>
+                            <div ref={navRef} className={`${hideNav ? 'translate-x-[calc(-100%_+_38px)] lg:translate-x-[calc(-100%_+_44px)]' : ''} transition-transform duration-500 ease-expo flex h-full`}>
                                 <nav className={`${hideNav ? 'scale-0 opacity-0' : ''} transition-[opacity,_transform] duration-500 ease-expo flex h-full rounded-full border border-gray-400 bg-gray-200 p-[2px] lg:p-1`}>
                                     <ul className="flex gap-1 h-full">
                                         {
