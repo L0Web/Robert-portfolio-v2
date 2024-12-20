@@ -1,4 +1,3 @@
-"use client";
 
 import { globalLoadingContext } from "@/utils/globalLoadingContext";
 import { useContext } from "react";
