@@ -116,7 +116,7 @@ function Artworks() {
   
   return (
     <FetchHandler 
-      isEmpty={Boolean(!data?.artworks?.length)} 
+      isEmpty={Boolean(!data?.artworks?.length && typeof data?.artworks?.length === 'number')} 
       loading={loading} 
       loadOnce={true} 
       error={error} 
