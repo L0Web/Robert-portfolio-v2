@@ -36,7 +36,7 @@ function LoadingCategories() {
 function Error ({ refresh }: { refresh: (variables?: Partial<OperationVariables> | undefined) => Promise<ApolloQueryResult<QueryResult>>; }) {
     return (
         <div className="flex items-center justify-center">
-            <button onClick={refresh} className="h-8 lg:h-10 flex gap-2 items-center justify-center px-6 rounded-full border border-red-400 text-red-500 hover:bg-red-500 hover:border-red-500 hover:text-white">
+            <button onClick={refresh} className="h-10 flex gap-2 items-center justify-center px-6 rounded-full border border-red-400 text-red-500 hover:bg-red-500 hover:border-red-500 hover:text-white">
                 <VscRefresh size={16} />
                 <span className="text-sm tracking-tight">Retry</span>
             </button>
