@@ -1,19 +1,19 @@
-"use client";
 
 import { RefObject, useState } from "react"
 
 import Image from "next/image";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import { MdClose } from "react-icons/md";
+import { ArtworkImage } from "@/types";
 
-type ImageType = {
-    id: string;
-    image: {
-        publicUrl: string;
-    }
-};
 
-export default function ImageViewer({ images, ref, closeDialog }: { images: ImageType[] | undefined; ref: RefObject<HTMLDialogElement | null>; closeDialog: () => void }) {
+type ImageViewerProps = {
+    images: ArtworkImage[] | undefined; 
+    ref: RefObject<HTMLDialogElement | null>; 
+    closeDialog: () => void;
+}
+
+export default function ImageViewer({ images, ref, closeDialog }: ImageViewerProps) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const nextImage = () => currentImageIndex + 1 < Number(images?.length) && setCurrentImageIndex(currentImageIndex + 1);
