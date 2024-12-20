@@ -139,7 +139,7 @@ function Artworks() {
 };
 
 
-export default function ArtworksComponentExport() {
+export default function SuspensedArtworks() {
   return (
     <Suspense>
       <Artworks />

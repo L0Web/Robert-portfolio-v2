@@ -3,7 +3,7 @@
 import { QueryResult } from "@/types";
 import { ApolloQueryResult, gql, OperationVariables, useQuery } from "@apollo/client";
 import { useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { FiChevronDown } from "react-icons/fi";
 import Category from "./Category";
@@ -44,7 +44,7 @@ function Error ({ refresh }: { refresh: (variables?: Partial<OperationVariables>
     )
 }
 
-export default function ArtworkCategories() {
+function ArtworkCategories() {
     const searchParams = useSearchParams();
     const selectedCategories = useMemo(() => searchParams.get('categories') || "", [searchParams]);
     const [showMore, setShowMore] = useState(false);
@@ -111,5 +111,13 @@ export default function ArtworkCategories() {
                 </div>
             </div>
         </div>
+    )
+};
+
+export function SuspensedArtworkCategories() {
+    return (
+        <Suspense>
+            <ArtworkCategories />
+        </Suspense>
     )
 }
