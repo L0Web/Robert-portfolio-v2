@@ -39,10 +39,10 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gray-200`}
         >
           <GlobalLoadingContextProvider>
-            <Header />
             <Suspense>
-              {children}
+              <Header />
             </Suspense>
+            {children}
             <Footer />
           </GlobalLoadingContextProvider>
         </body>
