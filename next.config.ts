@@ -12,7 +12,10 @@ const nextConfig: NextConfig = {
     ],
   },
   env: {
-    BACKEND_URI: process.env.NEXT_BACKEND_URI
+    BACKEND_URI: process.env.NEXT_BACKEND_URI,
+    EMAIL_SERVICE_ID: process.env.NEXT_EMAIL_SERVICE_ID,
+    EMAIL_TEMPLATE_ID: process.env.NEXT_EMAIL_TEMPLATE_ID,
+    EMAIL_PUBLIC_KEY: process.env.NEXT_EMAIL_PUBLIC_KEY
   }
 };
 
