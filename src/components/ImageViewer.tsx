@@ -1,5 +1,4 @@
 
-import { RefObject, useState } from "react"
 
 import Image from "next/image";
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
@@ -9,13 +8,13 @@ import { ArtworkImage } from "@/types";
 
 type ImageViewerProps = {
     images: ArtworkImage[] | undefined; 
-    ref: RefObject<HTMLDialogElement | null>; 
+    ref: React.RefObject<HTMLDialogElement | null>; 
     closeDialog: () => void;
+    currentImageIndex: number;
+    setCurrentImageIndex: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function ImageViewer({ images, ref, closeDialog }: ImageViewerProps) {
-    const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
+export default function ImageViewer({ images, ref, closeDialog, currentImageIndex, setCurrentImageIndex, }: ImageViewerProps) {
     const nextImage = () => currentImageIndex + 1 < Number(images?.length) && setCurrentImageIndex(currentImageIndex + 1);
     const prevImage = () => currentImageIndex - 1 >= 0 && setCurrentImageIndex(currentImageIndex - 1);
 
