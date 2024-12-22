@@ -46,7 +46,7 @@ export default function RootLayout({
     if(toggleDark) setTheme('dark');
     document.documentElement.classList.toggle('dark', toggleDark);
     document.documentElement.classList.toggle('dark-scrollbar', toggleDark);
-  }, [theme])
+  }, [theme]);
 
   return (
 
