@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
@@ -14,6 +14,7 @@ import Link from "next/link";
 import FetchHandler from "@/components/LoadingAndErrorContainer";
 import RelatedArtworks from "@/components/RelatedArtworks";
 import { QueryResult } from "@/types";
+import { AnimatePresence, motion } from "framer-motion";
 
 const FETCH_QUERY = gql`
   query($id: ID) {
@@ -40,6 +41,10 @@ const FETCH_QUERY = gql`
   }
 `;
 
+const ease = [.16, 1, .3, 1];
+
+const IMAGES_LIMIT = 3;
+
 
 export default function Project() {
   const { id } = useParams();
@@ -48,40 +53,74 @@ export default function Project() {
     variables: { id }
   });
 
+  const [startImageIndex, setStartImageIndex] = useState(0);
+  const endImageIndex = useMemo(() => startImageIndex + IMAGES_LIMIT, [startImageIndex]);
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const nextImages = () => endImageIndex < Number(data?.artwork?.images?.length) && setStartImageIndex(startImageIndex + IMAGES_LIMIT);
+  const prevImages = () => startImageIndex - IMAGES_LIMIT >= 0 && setStartImageIndex(startImageIndex - IMAGES_LIMIT);
+
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const openDialog = () => dialogRef.current?.show();
-  const closeDialog = () => dialogRef.current?.close();
+  const openDialog = (index?: number) => {
+    dialogRef.current?.show();
+    if(index) setCurrentImageIndex(index);
+  }
+  const closeDialog = () => {
+    dialogRef.current?.close();
+    setCurrentImageIndex(0);
+  }
 
   return (
     <FetchHandler loading={loading} error={error}>
         <div className="min-h-screen max-w-[var(--max-width)] m-auto">
-          <ImageViewer images={data?.artwork?.images} ref={dialogRef} closeDialog={closeDialog} />
+          <ImageViewer 
+            currentImageIndex={currentImageIndex} 
+            setCurrentImageIndex={setCurrentImageIndex} 
+            images={data?.artwork?.images} 
+            ref={dialogRef} 
+            closeDialog={closeDialog} 
+          />
             <section className="relative flex flex-col gap-4 pt-4 pb-6 px-2 lg:px-6 mb-6">
-                <ul className="h-[320px] lg:h-[60vh] min-h-[400px] flex gap-4 justify-center">
+              <AnimatePresence mode="wait">
+                <ul className={`${Number(data?.artwork?.images?.length) <= 1 ? 'grid grid-cols-1' : 'grid grid-cols-[1fr,_96px] sm:grid-cols-[1fr,_160px] grid-rows-2 md:grid-cols-[repeat(3,_auto)] md:grid-rows-1'} h-[320px] lg:h-[60vh] min-h-[400px] gap-2 md:gap-4 justify-center`}>
                     {
-                        data?.artwork?.images?.slice(0, 3)?.map(({ id, image }, index) => (
-                            <li key={id} className="relative h-full">
-                                <div className="relative h-full">
-                                    <Image width={1024} height={1024} src={image.publicUrl} alt={`${data?.artwork?.title} image ${index}`} className="object-cover h-full w-auto rounded-lg" />
+                        data
+                          ?.artwork
+                          ?.images
+                          ?.slice(startImageIndex, endImageIndex)
+                          ?.map(({ id, image }, index) => (
+                            <motion.li 
+                              key={id} 
+                              initial={{ scale: .5, opacity: 0 }} 
+                              animate={{ scale: 1, opacity: 1 }} 
+                              exit={{ scale: .5, opacity: 1 }}
+                              transition={{ ease, duration: 1, delay: index / 10 }} 
+                              className={`relative h-full ${index === 0 ? 'row-span-full' : ''}`}
+                              onClick={() => openDialog(index)}
+                            >
+                                <div className="relative h-full w-full">
+                                    <Image width={1024} height={1024} src={image.publicUrl} alt={`${data?.artwork?.title} image ${index}`} className="object-cover h-full w-full md:w-auto rounded-lg" />
                                 </div>
-                            </li>
+                            </motion.li>
                         ))
                     }
                 </ul>
+              </AnimatePresence>
                 <div className="flex justify-between gap-4 items-center">
-                    <span className="flex items-center justify-center h-8 px-4 rounded-full dark:text-white/80 border border-gray-400 dark:border-white/20 hover:bg-gray-300 dark:hover:bg-white/10 hover:border-transparent">
+                    <button onClick={prevImages} className={`${Number(data?.artwork?.images?.length) < 1 || startImageIndex <= 0 ? 'pointer-events-none opacity-50' : ''} flex items-center justify-center h-8 px-4 rounded-full dark:text-white/80 border border-gray-400 dark:border-white/20 hover:bg-gray-300 dark:hover:bg-white/10 hover:border-transparent`}>
                         <GoArrowLeft size={18} />
-                    </span>
-                    <button onClick={openDialog} className="flex items-center justify-center p-1 pr-4 gap-2 rounded-full border border-gray-400 dark:border-white/20 text-gray-600 dark:text-white/60 hover:bg-gray-300 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-transparent">
+                    </button>
+                    <button onClick={() => openDialog()} className="flex items-center justify-center p-1 pr-4 gap-2 rounded-full border border-gray-400 dark:border-white/20 text-gray-600 dark:text-white/60 hover:bg-gray-300 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-transparent">
                         <span className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-300 dark:bg-white/10">
                             <IoMdExpand size={16} />
                         </span>
                         <span className="text-sm tracking-tight">Expand images</span>
                     </button>
-                    <span className="flex items-center justify-center h-8 px-4 rounded-full dark:text-white/80 border border-gray-400 dark:border-white/20 hover:bg-gray-300 dark:hover:bg-white/10 hover:border-transparent">
+                    <button onClick={nextImages} className={`${Number(data?.artwork?.images?.length) < 1 || endImageIndex >= Number(data?.artwork?.images?.length) ? 'pointer-events-none opacity-50' : ''} flex items-center justify-center h-8 px-4 rounded-full dark:text-white/80 border border-gray-400 dark:border-white/20 hover:bg-gray-300 dark:hover:bg-white/10 hover:border-transparent`}>
                         <GoArrowRight size={18} />
-                    </span>
+                    </button>
                 </div>
             </section>
             <section className="m-auto flex flex-col-reverse md:flex-row justify-start gap-20 mb-20 px-2 lg:px-6">
@@ -103,11 +142,11 @@ export default function Project() {
                             ))
                           }
                         </p>
-                        <p className="text-sm text-gray-600 dark:text-white/50">Collection (<span className="font-geist">{data?.artwork?.images?.length || 0}</span> image{data?.artwork?.images?.length !== 1 ? '' : ''})</p>
+                        <p className="text-sm text-gray-600 dark:text-white/50">Collection (<span className="font-geist">{data?.artwork?.images?.length || 0}</span> image{data?.artwork?.images?.length !== 1 ? 's' : ''})</p>
                     </div>
                     <div className="flex flex-col gap-2">
                         <h4 className="text-xl tracking-tight dark:text-white/80">Client</h4>
-                        <p className="text-sm text-gray-600 dark:text-white/50">{data?.artwork?.name} — <span className="text-black">{data?.artwork?.role}</span></p>
+                        <p className="text-sm text-gray-600 dark:text-white/50">{data?.artwork?.name} — <span className="text-black dark:text-white/80">{data?.artwork?.role}</span></p>
                     </div>
                     <div className="flex flex-col gap-2">
                         <h4 className="text-xl tracking-tight dark:text-white/80">Platform</h4>
