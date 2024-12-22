@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 import client from "@/apolloClient";
 import { GlobalLoadingContextProvider } from "@/utils/globalLoadingContext";
+import { useEffect, useState } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,8 +27,29 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+
+  useEffect(() => {
+    const toggleDark = (
+        localStorage.getItem('theme') === 'dark' && 
+        Boolean(localStorage.getItem('theme')) && 
+        localStorage.getItem('theme') !== 'light'
+      ) || 
+      window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if(toggleDark) setTheme('dark');
+    document.documentElement.classList.toggle('dark', toggleDark);
+    document.documentElement.classList.toggle('dark-scrollbar', toggleDark);
+  }, [theme])
 
   return (
+
     <ApolloProvider client={client}>
       <html lang="en">
         <head>
@@ -35,10 +57,10 @@ export default function RootLayout({
         </head>
         <body
           style={{ '--max-width': '2048px' } as React.CSSProperties } 
-          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gray-200`}
+          className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gray-200 dark:bg-[#202020] transition-[background-color] ease-expo duration-300`}
         >
           <GlobalLoadingContextProvider>
-            <Header />
+            <Header theme={theme} toggleTheme={toggleTheme} />
             {children}
             <Footer />
           </GlobalLoadingContextProvider>

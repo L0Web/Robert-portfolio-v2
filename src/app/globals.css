@@ -47,6 +47,32 @@ body {
   }
 }
 
+.dark-scrollbar::-webkit-scrollbar-track, 
+.dark-scrollbar *::-webkit-scrollbar-track {
+  @apply bg-[#202020];
+}
+.dark-scrollbar::-webkit-scrollbar-thumb,
+.dark-scrollbar *::-webkit-scrollbar-thumb {
+  @apply bg-white/20 border-[#202020];
+}
+.dark-scrollbar::-webkit-scrollbar-thumb:hover,
+.dark-scrollbar *::-webkit-scrollbar-thumb:hover {
+  @apply bg-white/30;
+}
+
+::-webkit-scrollbar {
+  @apply w-[10px];
+}
+::-webkit-scrollbar-track {
+  @apply bg-gray-200;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-black/20 border-2 border-gray-200;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-black/30;
+}
+
 @keyframes infinite-rotate {
   from {
     transform: rotate(0);

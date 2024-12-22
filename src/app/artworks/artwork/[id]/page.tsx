@@ -70,30 +70,30 @@ export default function Project() {
                     }
                 </ul>
                 <div className="flex justify-between gap-4 items-center">
-                    <span className="flex items-center justify-center h-8 px-4 rounded-full border border-gray-400">
+                    <span className="flex items-center justify-center h-8 px-4 rounded-full dark:text-white/80 border border-gray-400 dark:border-white/20 hover:bg-gray-300 dark:hover:bg-white/10 hover:border-transparent">
                         <GoArrowLeft size={18} />
                     </span>
-                    <button onClick={openDialog} className="flex items-center justify-center p-1 pr-4 gap-2 rounded-full border border-gray-400 text-gray-600 hover:bg-gray-300 hover:border-gray-300">
-                        <span className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-300">
+                    <button onClick={openDialog} className="flex items-center justify-center p-1 pr-4 gap-2 rounded-full border border-gray-400 dark:border-white/20 text-gray-600 dark:text-white/60 hover:bg-gray-300 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-transparent">
+                        <span className="w-6 h-6 flex items-center justify-center rounded-full bg-gray-300 dark:bg-white/10">
                             <IoMdExpand size={16} />
                         </span>
                         <span className="text-sm tracking-tight">Expand images</span>
                     </button>
-                    <span className="flex items-center justify-center h-8 px-4 rounded-full border border-gray-400">
+                    <span className="flex items-center justify-center h-8 px-4 rounded-full dark:text-white/80 border border-gray-400 dark:border-white/20 hover:bg-gray-300 dark:hover:bg-white/10 hover:border-transparent">
                         <GoArrowRight size={18} />
                     </span>
                 </div>
             </section>
             <section className="m-auto flex flex-col-reverse md:flex-row justify-start gap-20 mb-20 px-2 lg:px-6">
                 <div className="flex flex-col gap-4 md:w-[320px]">
-                    <h3 className="text-3xl tracking-tight">Artwork Details</h3>
+                    <h3 className="text-3xl tracking-tight dark:text-white/80">Artwork Details</h3>
                     <div className="flex flex-col gap-2">
-                        <h4 className="text-xl tracking-tight">Date</h4>
-                        <p className="text-sm text-gray-600"><span className="font-geist">1</span>st December <span className="font-geist">2024</span></p>
+                        <h4 className="text-xl tracking-tight dark:text-white/80">Date</h4>
+                        <p className="text-sm text-gray-600 dark:text-white/50"><span className="font-geist">1</span>st December <span className="font-geist">2024</span></p>
                     </div>
                     <div className="flex flex-col gap-2">
-                        <h4 className="text-xl tracking-tight">Meta</h4>
-                        <p className="flex gap-1 flex-wrap text-sm text-gray-600">
+                        <h4 className="text-xl tracking-tight dark:text-white/80">Meta</h4>
+                        <p className="flex gap-1 flex-wrap text-sm text-gray-600 dark:text-white/50">
                           <span>Categories — </span>
                           {
                             data?.artwork?.categories.map(({ id, name }, index) => (
@@ -103,16 +103,16 @@ export default function Project() {
                             ))
                           }
                         </p>
-                        <p className="text-sm text-gray-600">Collection (<span className="font-geist">{data?.artwork?.images?.length || 0}</span> image{data?.artwork?.images?.length !== 1 ? '' : ''})</p>
+                        <p className="text-sm text-gray-600 dark:text-white/50">Collection (<span className="font-geist">{data?.artwork?.images?.length || 0}</span> image{data?.artwork?.images?.length !== 1 ? '' : ''})</p>
                     </div>
                     <div className="flex flex-col gap-2">
-                        <h4 className="text-xl tracking-tight">Client</h4>
-                        <p className="text-sm text-gray-600">{data?.artwork?.name} — <span className="text-black">{data?.artwork?.role}</span></p>
+                        <h4 className="text-xl tracking-tight dark:text-white/80">Client</h4>
+                        <p className="text-sm text-gray-600 dark:text-white/50">{data?.artwork?.name} — <span className="text-black">{data?.artwork?.role}</span></p>
                     </div>
                     <div className="flex flex-col gap-2">
-                        <h4 className="text-xl tracking-tight">Platform</h4>
-                        <p className="text-sm text-gray-600">Posted on <span className="text-black">{data?.artwork?.platform || "Unknown"}</span></p>
-                        <a className="h-10 rounded-full border border-gray-400 flex items-center justify-center gap-2 px-8 min-w-[200px] w-fit" href={data?.artwork.url_link || "#"}>
+                        <h4 className="text-xl tracking-tight dark:text-white/80">Platform</h4>
+                        <p className="text-sm text-gray-600 dark:text-white/50">Posted on <span className="text-black dark:text-white/80">{data?.artwork?.platform || "Unknown"}</span></p>
+                        <a className="h-10 rounded-full border border-gray-400 dark:border-white/20 hover:border-transparent hover:bg-gray-300 dark:hover:bg-white/10 dark:text-white/60 dark:hover:text-white/80 flex items-center justify-center gap-2 px-8 min-w-[200px] w-fit" href={data?.artwork.url_link || "#"}>
                             <span className="text-xs tracking-tight">View Post</span>
                             <MdOutlineArrowOutward size={16} />
                         </a>
@@ -120,8 +120,8 @@ export default function Project() {
                 </div>
                 <div className="flex flex-col gap-10">
                     <div className="flex flex-col gap-6">
-                        <h2 className="max-w-[45ch] text-4xl tracking-tight">{data?.artwork?.title}</h2>
-                        <p className="text-sm text-gray-600 max-w-[120ch]">
+                        <h2 className="max-w-[45ch] text-4xl tracking-tight dark:text-white/80">{data?.artwork?.title}</h2>
+                        <p className="text-sm lg:text-base text-gray-600 dark:text-white/50 max-w-[120ch]">
                           {
                             data
                             ?.artwork

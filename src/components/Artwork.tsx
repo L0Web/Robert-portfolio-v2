@@ -37,7 +37,7 @@ export default function Artwork({ id, title, categories, images, isRelated }: Mo
             <div className="relative overflow-hidden rounded-xl">
               <Image 
                 src={images[0]?.image?.publicUrl} 
-                alt={`image of artwork: ${name} 1`} 
+                alt={`image of artwork: ${title} 1`} 
                 height={600} 
                 width={1000} 
                 className={`w-full ${isRelated ? 'aspect-square object-cover' : 'h-auto'} rounded-xl`}
@@ -52,7 +52,7 @@ export default function Artwork({ id, title, categories, images, isRelated }: Mo
                     >
                       <Image 
                         src={image.publicUrl} 
-                        alt={`image of artwork: ${name} ${index + 2}`} 
+                        alt={`image of artwork: ${title} ${index + 2}`} 
                         width={600} 
                         height={1000} 
                         className="w-full h-full object-cover" 
@@ -79,13 +79,13 @@ export default function Artwork({ id, title, categories, images, isRelated }: Mo
           </div>
             <div className="flex justify-between gap-4">
                 <div className="flex flex-col">
-                    <span className="text-xs lg:text-sm font-semibold tracking-tight">{title}</span>
-                    <span className="text-[.6rem] lg:text-xs tracking-tight text-gray-600">
+                    <span className="text-xs lg:text-sm font-semibold tracking-tight dark:text-white/80">{title}</span>
+                    <span className="text-[.6rem] lg:text-xs tracking-tight text-gray-600 dark:text-white/50">
                       {categories.slice(0,3).map(({ name }) => name).join(", ")}
                       {categories.length > 3 ? <span>...</span> : null}
                     </span>
                 </div>
-                <span className="flex items-center justify-center px-2 h-4 lg:h-6 rounded-full bg-gray-300 text-[.55rem] lg:text-[.6rem]">
+                <span className="flex items-center justify-center px-2 h-4 lg:h-6 rounded-full bg-gray-300 dark:bg-white/10 dark:text-white/60 text-[.55rem] lg:text-[.6rem]">
                   {
                     images.length > 1 ?
                       <>

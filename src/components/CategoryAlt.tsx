@@ -22,7 +22,7 @@ export default function CategoryAlt({ id, name, selectedCategories, closeDialog 
         <Link 
             onClick={closeDialog}
             href={`/artworks?categories=${newSelectedCategories}`} 
-            className={`w-full flex items-center justify-center gap-1 whitespace-nowrap px-3 h-8 text-xs rounded-full border ${isSelected ? 'bg-gray-300 text-black' : 'border-gray-300 text-gray-600 hover:bg-black/5 hover:border-transparent'}`}
+            className={`w-full flex items-center justify-center gap-1 whitespace-nowrap px-3 h-8 text-xs rounded-full border ${isSelected ? 'dark:border-transparent bg-gray-300 dark:bg-white/20 text-black dark:text-white/60' : 'border-gray-300 dark:border-white/10 text-gray-600 dark:text-white/50 hover:bg-black/5 dark:hover:bg-white/10 hover:border-transparent'}`}
         >
             <span className="text-xs whitespace-nowrap">{name}</span>
         </Link>

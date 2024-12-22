@@ -10,7 +10,7 @@ export default function Footer() {
         <footer className="">
             <div className="max-w-[var(--max-width)] flex gap-4 m-auto px-6 py-2">
                 <div className="hidden lg:block flex-1">
-                    <span className="flex items-center h-full text-gray-500 justify-center gap-2 w-fit">
+                    <span className="flex items-center h-full text-gray-500 dark:text-white/50 justify-center gap-2 w-fit">
                         <span className="text-sm tracking-tight">Robert Orji, Copyright <span className="font-geist">2024</span></span>
                         <span className="block h-4 w-0 border-l border-gray-300"></span>
                         <span className="text-sm tracking-tight">Last updated - <span className="font-geist">2.02.2024</span></span>
@@ -26,32 +26,32 @@ export default function Footer() {
                         </span>
                         <span className="text-sm tracking-tight text-gray-600">{loadingText ? 'Loading more...' : loadingText}</span>
                     </span>
-                    <a href="#" className={`${!isLoadingGlobally ? '-translate-y-full' : 'translate-y'} transition-transform ease-expo duration-500 flex items-center justify-center gap-2 p-1 h-8 px-4 rounded-full bg-gray-300 text-gray-500 hover:bg-gray-400/50 hover:text-gray-600`}>
+                    <a href="#" className={`${!isLoadingGlobally ? '-translate-y-full' : 'translate-y'} transition-transform ease-expo duration-500 flex items-center justify-center gap-2 p-1 h-8 px-4 rounded-full bg-gray-300 dark:bg-white/20 text-gray-500 dark:text-white/50 hover:bg-gray-400/50 dark:hover:bg-white/30 hover:text-gray-600 dark:hover:text-white/60`}>
                         <span className="text-sm tracking-tight">Back to top</span>
                     </a>
                 </div>
                 <div className="flex-1 hidden lg:flex items-center justify-end gap-1">
-                    <div className="group/footer-1 relative h-8 px-3 rounded-full border border-gray-400/60 flex items-center justify-center">
-                        <span className="text-sm text-gray-600">Credits</span>
+                    <div className="group/footer-1 relative h-8 px-3 rounded-full border border-gray-400/60 dark:border-white/20 flex items-center justify-center">
+                        <span className="text-sm text-gray-600 dark:text-white/60">Credits</span>
                         <div className="absolute bottom-full right-0 flex flex-col gap-1 pb-2 w-fit min-w-[200px] pointer-events-none opacity-0 group-hover/footer-1:opacity-100 group-hover/footer-1:pointer-events-all transition-opacity duration-500 ease-expo">
-                            <div className="grid grid-cols-[8ch,_1fr] gap-2 p-3 tracking-tight text-gray-600 rounded-lg border border-gray-400/60 bg-gray-200">
+                            <div className="grid grid-cols-[8ch,_1fr] gap-2 p-3 tracking-tight text-gray-600 dark:text-white/50 rounded-lg border border-gray-400/60 dark:border-white/20 bg-gray-200 dark:bg-[#202020]">
                                 <span className="text-xs">Design</span>
                                 <span className="text-xs whitespace-nowrap">Yi Zheng</span>
                             </div>
-                            <div className="grid grid-cols-[8ch,_1fr] gap-2 p-3 tracking-tight text-gray-600 rounded-lg border border-gray-400/60 bg-gray-200">
+                            <div className="grid grid-cols-[8ch,_1fr] gap-2 p-3 tracking-tight text-gray-600 dark:text-white/50 rounded-lg border border-gray-400/60 dark:border-white/20 bg-gray-200 dark:bg-[#202020]">
                                 <span className="text-xs">Developer</span>
                                 <span className="text-xs">Ezema Emmanuel</span>
                             </div>
                         </div>
                     </div>
-                    <div className="relative group/footer-2 h-8 px-3 rounded-full border border-gray-400/60 flex items-center justify-center">
-                        <span className="text-sm text-gray-600">Contact</span>
+                    <div className="group/footer-2 relative h-8 px-3 rounded-full border border-gray-400/60 dark:border-white/20 flex items-center justify-center">
+                        <span className="text-sm text-gray-600 dark:text-white/60">Contact</span>
                         <div className="absolute bottom-full right-0 flex flex-col gap-1 pb-2 w-fit min-w-[200px] pointer-events-none opacity-0 group-hover/footer-2:opacity-100 group-hover/footer-2:pointer-events-all transition-opacity duration-500 ease-expo">
-                            <div className="grid grid-cols-[8ch,_1fr] gap-2 p-3 tracking-tight text-gray-600 rounded-lg border border-gray-400/60 bg-gray-200">
+                            <div className="grid grid-cols-[8ch,_1fr] gap-2 p-3 tracking-tight text-gray-600 dark:text-white/50 rounded-lg border border-gray-400/60 dark:border-white/20 bg-gray-200 dark:bg-[#202020]">
                                 <span className="text-xs">Email</span>
                                 <span className="text-xs">emmanuelezema6@gmail.com</span>
                             </div>
-                            <div className="grid grid-cols-[8ch,_1fr] gap-2 p-3 tracking-tight text-gray-600 rounded-lg border border-gray-400/60 bg-gray-200">
+                            <div className="grid grid-cols-[8ch,_1fr] gap-2 p-3 tracking-tight text-gray-600 dark:text-white/50 rounded-lg border border-gray-400/60 dark:border-white/20 bg-gray-200 dark:bg-[#202020]">
                                 <span className="text-xs">Socials</span>
                                 <div className="flex justify-start flex-wrap gap-3">
                                     {

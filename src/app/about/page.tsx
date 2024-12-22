@@ -36,8 +36,8 @@ export default function About() {
                         {
                             data?.abouts?.map(({ id, title, text }) => (
                                 <div key={id} className="flex flex-col gap-4">
-                                    <h2 className="text-3xl tracking-tight">{title}</h2>
-                                    <p className="max-w-[60ch] tracking-tight text-xl text-gray-600">
+                                    <h2 className="text-3xl tracking-tight dark:text-white/80">{title}</h2>
+                                    <p className="max-w-[60ch] tracking-tight text-xl text-gray-600 dark:text-white/50">
                                         {
                                             text
                                                 .replace("\n", " _space_ ")
@@ -58,11 +58,11 @@ export default function About() {
                             ))
                         }
                         <div className="flex flex-col gap-4">
-                            <h2 className="text-3xl tracking-tight">Socials</h2>
-                            <div className="max-w-[60ch] tracking-tight text-xl text-gray-600 flex gap-4 flex-wrap">
+                            <h2 className="text-3xl tracking-tight dark:text-white/80">Socials</h2>
+                            <div className="max-w-[60ch] tracking-tight text-xl text-gray-600 dark:text-white/50 flex gap-4 flex-wrap">
                                 {
                                     data?.socials?.map(({ id, platform, url_link }) => (
-                                        <a key={id} href={url_link} className="flex-1 flex items-center justify-center h-10 bg-gray-300 hover:bg-gray-300/50 rounded-full px-4 gap-3">
+                                        <a key={id} href={url_link} className="flex-1 flex items-center justify-center h-10 bg-gray-300 dark:bg-white/10 hover:bg-gray-300/50 dark:hover:bg-white/20 rounded-full px-4 gap-3">
                                             <span className="flex items-center justify-center">
                                                 {
                                                     platform === "Twitter" ?

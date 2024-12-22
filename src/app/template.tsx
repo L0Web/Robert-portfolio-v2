@@ -13,7 +13,6 @@ export default function Template({ children }: { children: React.ReactNode }) {
             <motion.div 
                 initial={{ scale: .9 }}
                 animate={{ scale: 1 }}
-                exit={{ scale: .9 }} 
                 transition={{ duration: 1, ease: EASE }}
                 key={pathname}
             >
@@ -21,9 +20,8 @@ export default function Template({ children }: { children: React.ReactNode }) {
                     key={pathname} 
                     initial={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }} 
                     animate={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)' }} 
-                    exit={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }}
                     transition={{ duration: 1, ease: EASE }}
-                    className="fixed top-14 left-0 pointer-events-none bg-gray-200 w-screen h-screen z-[99999]" 
+                    className="fixed top-0 left-0 pointer-events-none bg-gray-200 dark:bg-[#202020] w-screen h-screen z-[99]" 
                 />
                 {children}
             </motion.div>
