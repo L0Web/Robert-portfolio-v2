@@ -47,8 +47,8 @@ export default function RelatedArtworks({ id, categories }: { id: string | strin
 
     return (
         <FetchHandler loading={loading} error={error}>
-            <section className="mx-2 lg:mx-4 m-6 mb-8 rounded-xl lg:rounded-[30px] px-2 pt-4 md:pt-8 md:p-6 pb-4 flex flex-col gap-6 md:gap-8 bg-gray-300">
-                <h2 className="tracking-tight text-2xl lg:text-4xl">Other Artworks</h2>
+            <section className="mx-2 lg:mx-4 m-6 mb-8 rounded-xl lg:rounded-[30px] px-2 pt-4 md:pt-8 md:p-6 pb-4 flex flex-col gap-6 md:gap-8 bg-gray-300 dark:bg-white/5">
+                <h2 className="tracking-tight text-2xl lg:text-4xl dark:text-white/80">Other Artworks</h2>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {
                         data?.artworks?.slice(0, 6)?.map((artwork) => (
