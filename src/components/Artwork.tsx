@@ -20,12 +20,15 @@ export default function Artwork({ id, title, categories, images, isRelated }: Mo
     
     const nextImage = () => setCurrentImageIndex(currentImageIndex + 1 >= images.length ? currentImageIndex : currentImageIndex + 1);
     const prevImage = () => setCurrentImageIndex(currentImageIndex - 1 < 0 ? currentImageIndex : currentImageIndex - 1);
+
+    const handleClick = () => document.documentElement.scroll(0, 0);
   
     return (
       <motion.li 
         initial={{ opacity: 0 }} 
         animate={{ opacity: 1 }} 
         style={{ WebkitColumnBreakInside: 'avoid' } as React.CSSProperties} 
+        onClick={handleClick}
         className="mb-2 w-full h-auto ease-expo transition-opaicity duration-500"
       >
         <Link 

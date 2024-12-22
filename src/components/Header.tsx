@@ -61,10 +61,6 @@ export default function Header({ theme, toggleTheme }: { theme: 'light' | 'dark'
         return () => window.removeEventListener('resive', handleWindowResize);
     }, [navRef, containerRef]);
 
-    useEffect(() => {
-        document.documentElement.scroll(0, 0);
-    }, [pathname])
-
     return (
         <div className="sticky top-0 z-[999] lg:z-10 bg-gray-200 dark:bg-[#202020] transition-[background-color] duration-300 ease-expo">
             <div className="m-auto max-w-[var(--max-width)] grid grid-cols-[1fr,_auto] lg:grid-cols-3 px-2 lg:px-4 py-2">
