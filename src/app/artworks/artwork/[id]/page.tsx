@@ -84,7 +84,7 @@ export default function Project() {
           />
             <section className="relative flex flex-col gap-4 pt-4 pb-6 px-2 lg:px-6 mb-6">
               <AnimatePresence mode="wait">
-                <ul className={`${Number(data?.artwork?.images?.length) <= 1 ? 'grid grid-cols-1' : 'grid grid-cols-[1fr,_96px] sm:grid-cols-[1fr,_160px] grid-rows-2 md:grid-cols-[repeat(3,_auto)] md:grid-rows-1'} h-[320px] lg:h-[60vh] min-h-[400px] gap-2 md:gap-4 justify-center`}>
+                <ul className={`${Number(data?.artwork?.images?.length) <= 1 ? 'flex items-center justify-center' : 'grid md:flex grid-cols-[1fr,_96px] sm:grid-cols-[1fr,_160px] grid-rows-2 md:justify-center md:items-center'} ${Number(data?.artwork?.images?.length) <= 1 ? 'h-auto' : 'h-[320px]'} lg:h-[60vh] min-h-[400px] gap-2 md:gap-4 justify-center`}>
                     {
                         data
                           ?.artwork
@@ -97,7 +97,7 @@ export default function Project() {
                               animate={{ scale: 1, opacity: 1 }} 
                               exit={{ scale: .5, opacity: 1 }}
                               transition={{ ease, duration: 1, delay: index / 10 }} 
-                              className={`relative h-full ${index === 0 ? 'row-span-full' : ''}`}
+                              className={`relative h-full cursor-pointer ${index === 0 ? 'row-span-full' : ''}`}
                               onClick={() => openDialog(index)}
                             >
                                 <div className="relative h-full w-full">
