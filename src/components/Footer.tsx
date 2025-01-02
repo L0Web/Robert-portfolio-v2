@@ -17,14 +17,14 @@ export default function Footer() {
                     </span>
                 </div>
                 <div className="flex-1 h-8 flex flex-col items-center overflow-hidden">
-                    <span className={`${isLoadingGlobally ? '' : '-translate-y-full'} transition-transform ease-expo duration-500 flex gap-2 p-1 h-8 pr-4 items-center justify-center border border-gray-400/60 rounded-full`}>
-                        <span className="animate-rotate relative w-6 h-6 rounded-full border border-gray-400">
-                            <span className="absolute top-1 left-1/2 -translate-x-1/2 w-1 aspect-square rounded-full border border-gray-400" />
-                            <span className="absolute top-1/2 right-1 -translate-y-1/2 w-1 aspect-square rounded-full border border-gray-400" />
-                            <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 aspect-square rounded-full border border-gray-400" />
-                            <span className="absolute top-1/2 left-1 -translate-y-1/2 w-1 aspect-square rounded-full border border-gray-400" />
+                    <span className={`${isLoadingGlobally ? '' : '-translate-y-full'} transition-transform ease-expo duration-500 flex gap-2 p-1 h-8 pr-4 items-center justify-center border border-gray-400/60 dark:border-white/20 rounded-full`}>
+                        <span className="animate-rotate relative w-6 h-6 rounded-full border border-gray-400 dark:border-white/20">
+                            <span className="absolute top-1 left-1/2 -translate-x-1/2 w-1 aspect-square rounded-full border border-gray-400 dark:border-white/20" />
+                            <span className="absolute top-1/2 right-1 -translate-y-1/2 w-1 aspect-square rounded-full border border-gray-400 dark:border-white/20" />
+                            <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 aspect-square rounded-full border border-gray-400 dark:border-white/20" />
+                            <span className="absolute top-1/2 left-1 -translate-y-1/2 w-1 aspect-square rounded-full border border-gray-400 dark:border-white/20" />
                         </span>
-                        <span className="text-sm tracking-tight text-gray-600">{loadingText ? 'Loading more...' : loadingText}</span>
+                        <span className="text-sm tracking-tight text-gray-600 dark:text-white/50">{loadingText ? 'Loading more...' : loadingText}</span>
                     </span>
                     <a href="#" className={`${!isLoadingGlobally ? '-translate-y-full' : 'translate-y'} transition-transform ease-expo duration-500 flex items-center justify-center gap-2 p-1 h-8 px-4 rounded-full bg-gray-300 dark:bg-white/20 text-gray-500 dark:text-white/50 hover:bg-gray-400/50 dark:hover:bg-white/30 hover:text-gray-600 dark:hover:text-white/60`}>
                         <span className="text-sm tracking-tight">Back to top</span>
