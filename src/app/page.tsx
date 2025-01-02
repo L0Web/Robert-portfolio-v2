@@ -49,7 +49,7 @@ export default function Home() {
     <FetchHandler loading={loading} error={error} refetch={refetch}>
       <div className="group font-[family-name:var(--font-geist-sans)] m-auto max-w-[var(--max-width)]">
         <section className="lg:mt-[20vh] min-h-[30vh] flex flex-col gap-10 justify-center items-center">
-          <p className="text-gray-600 dark:text-white/60 text-center w-full flex-wrap max-w-[45ch] lg:max-w-[60ch] text-xl leading-tight lg:text-2xl">
+          <p className="text-gray-600 dark:text-white/60 text-left sm:text-center px-2 md:px-4 w-full flex-wrap max-w-[45ch] lg:max-w-[60ch] text-lg sm:text-xl leading-tight lg:text-2xl">
             {
               data?.introTexts?.map(({ content, highlitedWordsInContent }) => (
                 content
