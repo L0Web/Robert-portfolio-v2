@@ -23,11 +23,11 @@ const FETCH_QUERY = gql`
 function LoadingCategories() {
     return (
         <div className="flex items-center justify-center">
-            <span className="animate-rotate relative w-8 lg:w-10 h-8 lg:h-10 rounded-full border border-gray-400">
-                <span className="absolute top-2 left-1/2 -translate-x-1/2 w-2 aspect-square rounded-full border border-gray-400" />
-                <span className="absolute top-1/2 right-2 -translate-y-1/2 w-2 aspect-square rounded-full border border-gray-400" />
-                <span className="absolute bottom-2 left-1/2 -translate-x-1/2 w-2 aspect-square rounded-full border border-gray-400" />
-                <span className="absolute top-1/2 left-2 -translate-y-1/2 w-2 aspect-square rounded-full border border-gray-400" />
+            <span className="animate-rotate relative w-8 lg:w-10 h-8 lg:h-10 rounded-full border border-gray-400 dark:border-white/20">
+                <span className="absolute top-2 left-1/2 -translate-x-1/2 w-2 aspect-square rounded-full border border-gray-400 dark:border-white/20" />
+                <span className="absolute top-1/2 right-2 -translate-y-1/2 w-2 aspect-square rounded-full border border-gray-400 dark:border-white/20" />
+                <span className="absolute bottom-2 left-1/2 -translate-x-1/2 w-2 aspect-square rounded-full border border-gray-400 dark:border-white/20" />
+                <span className="absolute top-1/2 left-2 -translate-y-1/2 w-2 aspect-square rounded-full border border-gray-400 dark:border-white/20" />
             </span>
         </div>
     )
@@ -89,7 +89,7 @@ function ArtworkCategories() {
                     </button>
                 </li>
             </ul>
-            <div className={`${showMore ? '' : 'scale-y-50 scale-x-75 opacity-0'} origin-top transition-[transform,_opacity] ease-expo duration-500 absolute top-[calc(100%_+_6px)] left-0 w-full rounded-[20px] bg-gray-200 dark:bg-[#202020] border border-gray-400/60 dark:border-white/20`}>
+            <div className={`${showMore ? '' : 'scale-y-50 scale-x-75 opacity-0'} origin-top transition-[transform,_opacity] ease-expo duration-500 absolute top-[calc(100%_+_6px)] left-1/2 -translate-x-1/2 w-fit min-w-full rounded-[20px] bg-gray-200 dark:bg-[#202020] border border-gray-400/60 dark:border-white/20`}>
                 <div className={`${showMore ? 'delay-200' : 'opacity-0'} origin-top transition-[opacity] ease-expo duration-500 flex flex-col gap-4 p-4`}>
                     <span className="hidden sm:flex items-center gap-2 rounded-full px-2 bg-gray-300 dark:bg-white/10 text-gray-600 dark:text-white/50">
                         <BiSearch size={16} />
