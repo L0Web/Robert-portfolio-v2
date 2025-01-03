@@ -36,12 +36,11 @@ export default function RootLayout({
   };
 
   useEffect(() => {
-    const toggleDark = (
+    const toggleDark = (!Boolean(localStorage.getItem('theme')) && window.matchMedia('(prefers-color-scheme: dark)').matches) || (
         localStorage.getItem('theme') === 'dark' && 
         Boolean(localStorage.getItem('theme')) && 
         localStorage.getItem('theme') !== 'light'
-      ) || 
-      window.matchMedia('(prefers-color-scheme: dark)').matches;
+      );
     
     if(toggleDark) setTheme('dark');
     document.documentElement.classList.toggle('dark', toggleDark);
