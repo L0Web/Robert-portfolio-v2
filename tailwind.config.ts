@@ -18,6 +18,17 @@ export default {
     },
     extend: {
       colors: {
+        gray: {
+            100: "#fffdfa",
+            200: "#eeece9",
+            300: "#bbb9b6",
+            400: "#999794",
+            500: "#777571",
+            600: "#555350",
+            700: "#333130",
+            800: "#111010",
+            900: "#000000"
+        },
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
