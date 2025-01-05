@@ -1,9 +1,14 @@
 "use client";
 
-import FetchHandler from "@/components/LoadingAndErrorContainer";
-import { QueryResult } from "@/types";
-import { gql, useQuery } from "@apollo/client";
+
 import Image from "next/image";
+import { gql, useQuery } from "@apollo/client";
+
+import { v4 as generateId } from "uuid";
+
+import { QueryResult } from "@/types";
+import FetchHandler from "@/components/LoadingAndErrorContainer";
+
 import { BiLogoInternetExplorer } from "react-icons/bi";
 import { SlSocialBehance, SlSocialInstagram, SlSocialLinkedin, SlSocialTwitter, SlSocialFacebook } from "react-icons/sl";
 
@@ -45,8 +50,8 @@ export default function About() {
                                                 .map((characters, index) => (
                                                     characters.includes('_space_') ?
                                                         <>
-                                                        <br />
-                                                        <br /> 
+                                                        <br key={generateId()} />
+                                                        <br key={generateId()} /> 
                                                         </> :
                                                         /[a-z0-9-]+@[a-z]+.[a-z]+/.test(characters) ?
                                                             <a key={index} href={`https://${characters}`} className="underline" target="_blank">{characters}</a> :
