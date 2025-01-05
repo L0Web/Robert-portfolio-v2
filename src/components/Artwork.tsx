@@ -7,6 +7,8 @@ import Image from "next/image";
 
 import { motion } from "framer-motion";
 
+import { v4 as generateKey } from "uuid";
+
 import { Artwork as ArtworkType } from "@/types";
 
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
@@ -47,9 +49,9 @@ export default function Artwork({ id, title, categories, images, isRelated }: Mo
               />
               <div className="absolute top-0 left-0 w-full h-full">
                 {
-                  images.slice(1,).map(({ id, image }, index) => (
+                  images.slice(1,).map(({ image }, index) => (
                     <div 
-                      key={id}
+                      key={generateKey()}
                       style={{ transform: `translateX(${Math.max(0, (-currentImageIndex + (index + 1)) * 100)}%)` }}
                       className="absolute top-0 left-0 w-full h-full transition-transform ease-expo duration-500"
                     >
