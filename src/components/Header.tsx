@@ -66,7 +66,7 @@ export default function Header({ theme, toggleTheme }: { theme: 'light' | 'dark'
             <div className="m-auto max-w-[var(--max-width)] grid grid-cols-[1fr,_auto] lg:grid-cols-3 px-2 lg:px-4 py-2">
                 <div ref={containerRef} className="h-8 lg:h-10 max-w-fit">
                     <div className="h-full flex items-center">
-                        <Link href="/" className={`${showAlternativeNav ? 'aspect-square' : 'sm:px-3 lg:px-4'} h-full min-w-8 flex border border-gray-200 dark:border-white/30 items-center justify-center rounded-full`}>
+                        <Link href="/" className={`${showAlternativeNav ? 'aspect-square' : 'sm:px-3 lg:px-4'} h-full min-w-8 flex border border-gray-300/50 dark:border-white/30 items-center justify-center rounded-full`}>
                             <h2 className="text-base lg:text-xl tracking-tight text-black dark:text-white/80 whitespace-nowrap">
                                 <span>R</span>
                                 <span className={`${showAlternativeNav ? '' : 'sm:inline'} hidden`}>obert Orji</span>
@@ -74,7 +74,7 @@ export default function Header({ theme, toggleTheme }: { theme: 'light' | 'dark'
                         </Link>
                         <div className="h-8 lg:h-10 overflow-hidden">
                             <div ref={navRef} className={`${hideNav ? 'translate-x-[calc(-100%_+_36px)] lg:translate-x-[calc(-100%_+_44px)]' : ''} transition-transform duration-500 ease-expo flex h-full`}>
-                                <nav className={`${hideNav ? 'scale-0 opacity-0' : ''} transition-[opacity,_transform] duration-500 ease-expo flex h-full rounded-full border border-gray-200 dark:border-white/30 p-[2px] lg:p-1`}>
+                                <nav className={`${hideNav ? 'scale-0 opacity-0' : ''} transition-[opacity,_transform] duration-500 ease-expo flex h-full rounded-full border border-gray-300/50 dark:border-white/30 p-[2px] lg:p-1`}>
                                     <ul className="flex gap-1 h-full">
                                         {
                                             NAVIGATION.map((item, index) => (
@@ -85,7 +85,7 @@ export default function Header({ theme, toggleTheme }: { theme: 'light' | 'dark'
                                         }
                                     </ul>
                                 </nav>
-                                <button onClick={() => setHideNav(!hideNav)} className={`${hideNav ? '' : '-rotate-180'} transition-transform duration-500 delay-300 ease-expo h-full w-8 lg:w-10 aspect-square rounded-full flex items-center justify-center dark:text-white/80 border border-gray-200 dark:border-white/30 bg-white/20 dark:bg-transparent mr-1 hover:bg-gray-300 dark:hover:bg-white/10 hover:border-gray-400/50 dark:hover:border-transparent`}>
+                                <button onClick={() => setHideNav(!hideNav)} className={`${hideNav ? '' : '-rotate-180'} transition-transform duration-500 delay-300 ease-expo h-full w-8 lg:w-10 aspect-square rounded-full flex items-center justify-center dark:text-white/80 border border-gray-300/50 dark:border-white/30 bg-white/20 dark:bg-transparent mr-1 hover:bg-gray-300/50 dark:hover:bg-white/10 hover:border-gray-400/50 dark:hover:border-transparent`}>
                                     <FiChevronRight size={14} />
                                 </button>
                             </div>
