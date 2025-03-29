@@ -1,11 +1,9 @@
-import { QueryResult } from "@/types";
-import { ApolloQueryResult, OperationVariables } from "@apollo/client";
 import { useEffect, useRef, useState } from "react";
 import { VscRefresh } from "react-icons/vsc";
 
 
 
-export default function Loading({ text, refetch }: { text: string; refetch?: ((variables?: Partial<OperationVariables> | undefined) => Promise<ApolloQueryResult<QueryResult>>) | undefined }) {
+export default function Loading({ text, refetch }: { text: string; refetch?: (() => void) | undefined }) {
     const [isTakingTooLong, setIsTakingTooLong] = useState(false);
     const timeout = useRef<NodeJS.Timeout>(null);
 
