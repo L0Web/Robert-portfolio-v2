@@ -1,37 +1,46 @@
 
 
+export interface ProfilePicture {
+    _id: string;
+    image: { 
+        _id: string;
+        publicUrl: string;
+    }
+}
+
 export interface Social {
-    id: string;
-    platform: "Email" | "Instagram" | "Twitter" | "LinkedIn" | "Behance" | "Facebook" | "Other"
+    _id: string;
+    platform: "Email" | "Instagram" | "Twitter" | "LinkedIn" | "Behance" | "Facebook" | "Other";
     url_link: string;
 }
 
 export interface Category {
-    id: string;
+    _id: string;
     name: string;
 };
 
 export interface ArtworkImage {
-    id: string;
+    _id: string;
     image: {
+        _id: string;
         publicUrl: string;
     }
 };
 
 export interface About {
-    id: string;
+    _id: string;
     title: string;
     text: string;
 };
 
 export interface IntroText {
-    id: string;
+    _id: string;
     content: string;
     highlitedWordsInContent: string;
 }
 
 export interface Artwork {
-    id: string;
+    _id: string;
     title: string;
     desc?: string;
     categories: Category[];
@@ -51,9 +60,16 @@ export type QueryResult = {
     abouts: About[];
     socials: Social[];
     profilePicture: ArtworkImage;
-    introTexts: IntroText[];
     artworksCount: number;
     categoriesCount: number;
     aboutsCount: number;
     socialsCount: number;
+    profilePicture: ProfilePicture;
+    introText: IntroText;
+    limit: number;
+    page: number;
+    total: number;
+    filter: {
+        category: string[];
+    }
 }
