@@ -1,7 +1,6 @@
 "use client";
 
 import { Suspense, useContext, useEffect, useMemo, useState } from "react";
-import { gql, useQuery } from "@apollo/client";
 
 import FetchHandler from "./LoadingAndErrorContainer";
 import Artwork from "./Artwork";
@@ -11,26 +10,10 @@ import { useSearchParams } from "next/navigation";
 
 import { motion } from "framer-motion";
 import { globalLoadingContext } from "@/utils/globalLoadingContext";
+import { useFetch } from "@/utils/hook";
 
-const FETCH_QUERY = gql`
-  query ($where: ArtworkWhereInput, $skip: Int, $limit: Int) {
-    artworks(where: $where, take: $limit, skip: $skip) {
-      id
-      title
-      categories {
-        id
-        name
-      }
-      images {
-        image {
-          id
-          publicUrl
-        }
-      }
-    }
-    artworksCount(where: $where)
-  }
-`;
+
+const BACKEND_URI = process.env.NEXT_PUBLIC_API_URI;
 
 function Artworks() {
   const limit = 10;
@@ -38,52 +21,21 @@ function Artworks() {
   const searchParams = useSearchParams();
   const { isLoadingGlobally, startLoading, endLoading } = useContext(globalLoadingContext);
 
-  const categoriesFilter = useMemo(() => searchParams
-    .get("categories")
-    ?.split(" ")
-    ?.filter(categoryId => categoryId)
-    ?.map((categoryId) => ({
-      categories: {
-        some: {
-          id: {
-            equals: categoryId
-          }
-        }
-      }
-    }))
-  , [searchParams]);
+  const categoriesFilter = useMemo(() => searchParams.get("categories"), [searchParams]);
 
   const [page, setPage] = useState(0);
-
   const skip = useMemo(() => limit * page, [page]);
-  const { loading, error, data, refetch } = useQuery<QueryResult>(FETCH_QUERY, {
-    variables: 
-      {
-        where: (categoriesFilter?.length ?
-          {
-            AND: categoriesFilter,
-            NOT: { 
-              categories: {
-                none: {}
-              }
-            }
-          } :
-          {
-            categories: { some: {} }
-          }
-        ),
-        limit,
-        skip
-      }
-  });
+
+  const { loading, error, data, refetch } = useFetch<QueryResult>(`${BACKEND_URI}/robert/artworks?${limit}&page=${page}&filter=${categoriesFilter ? categoriesFilter : ''}`);
+
   const [prevArtworks, setPrevArtworks] = useState<ArtworkType[]>([]);
-  const prevArtworkIds = useMemo(() => prevArtworks.map(({ id }) => id), [prevArtworks]);
+  const prevArtworkIds = useMemo(() => prevArtworks.map(({ _id }) => _id), [prevArtworks]);
   const artworks = useMemo<ArtworkType[]>(() => [
     ...prevArtworks, 
     ...(
         data
           ?.artworks
-          ?.filter(({ id }) => !prevArtworkIds.includes(id)) || []
+          ?.filter(({ _id }) => !prevArtworkIds.includes(_id)) || []
     )
   ], [data, prevArtworks, prevArtworkIds]);
 
@@ -108,7 +60,7 @@ function Artworks() {
   }, [categoriesFilter]);
 
   useEffect(() => {
-    if(!data?.artworks?.length || data?.artworks?.some(({ id }) => prevArtworkIds.includes(id))) return;
+    if(!data?.artworks?.length || data?.artworks?.some(({ _id }) => prevArtworkIds.includes(_id))) return;
 
     const newValues = [...prevArtworks, ...data.artworks];
     setPrevArtworks(newValues);
@@ -119,7 +71,7 @@ function Artworks() {
       isEmpty={Boolean(!data?.artworks?.length && typeof data?.artworks?.length === 'number')} 
       loading={loading} 
       loadOnce={true} 
-      error={error} 
+      error={Boolean(error)} 
       refetch={refetch}
     >
       <ul
@@ -128,7 +80,7 @@ function Artworks() {
           {
               artworks.map((artwork) => (
                 artwork.images.length >= 1 ?
-                  <Artwork {...artwork} key={artwork.id} /> :
+                  <Artwork {...artwork} key={artwork._id} /> :
                   null
               ))
           }
