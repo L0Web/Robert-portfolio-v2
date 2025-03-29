@@ -8,12 +8,12 @@ interface ModifiedCategoryType extends CategoryType {
     closeDialog: () => void;
 }
 
-export default function Category({ id, name, selectedCategories, closeDialog }: ModifiedCategoryType) {
-    const isSelected = useMemo(() => selectedCategories.includes(id), [selectedCategories, id]);
+export default function Category({ _id, name, selectedCategories, closeDialog }: ModifiedCategoryType) {
+    const isSelected = useMemo(() => selectedCategories.includes(_id), [selectedCategories, _id]);
     const newSelectedCategories = useMemo(() => (isSelected ? 
-        [...(selectedCategories.split(" "))].filter((item) => !item.includes(id)).join(" ") :
-        [...(selectedCategories.split(" ")), id].join(" ")
-    ), [selectedCategories, id, isSelected]);
+        [...(selectedCategories.split(" "))].filter((item) => !item.includes(_id)).join(" ") :
+        [...(selectedCategories.split(" ")), _id].join(" ")
+    ), [selectedCategories, _id, isSelected]);
 
     return (
         <Link 
