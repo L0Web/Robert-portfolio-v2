@@ -29,9 +29,9 @@ export default function ImageViewer({ images, ref, closeDialog, currentImageInde
                 </div>
                 <div className="relative overflow-hidden">
                     {
-                        images?.map(({ image, id }, index) => (
+                        images?.map(({ image, _id }, index) => (
                             <div 
-                                key={id} 
+                                key={_id} 
                                 style={{ transform: `translatex(${(index - currentImageIndex) * 100}%) scale(${index === currentImageIndex ? '1' : '.5'})` }}
                                 className={`${index === currentImageIndex ? '' : 'opacity-0'} transition-[opacity,_transform] origin-left ease-expo duration-[1000ms] absolute top-0 left-0 w-full h-full flex items-center justify-center`}
                             >
@@ -46,8 +46,8 @@ export default function ImageViewer({ images, ref, closeDialog, currentImageInde
                             <span className="opacity-0">00</span>
                             <div style={{ transform: `translateY(${currentImageIndex * -100}%)` }} className="transition-transform ease-expo duration-1000 absolute top-0 left-0 w-full h-full flex flex-col">
                                 {
-                                    images?.map(({ id }, index) => (
-                                        <span key={id} className="block">
+                                    images?.map(({ _id }, index) => (
+                                        <span key={_id} className="block">
                                             {index + 1 < 10 ? `0${index + 1}` : index + 1}
                                         </span>
                                     ))
