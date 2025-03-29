@@ -2,44 +2,23 @@
 
 import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 
 import { GoArrowLeft, GoArrowRight } from "react-icons/go";
 import { IoMdExpand } from "react-icons/io";
 import { MdOutlineArrowOutward } from "react-icons/md";
 
 import ImageViewer from "@/components/ImageViewer";
-import { gql, useQuery } from "@apollo/client";
-import { useParams } from "next/navigation";
-import Link from "next/link";
 import FetchHandler from "@/components/LoadingAndErrorContainer";
 import RelatedArtworks from "@/components/RelatedArtworks";
+
 import { QueryResult } from "@/types";
 import { AnimatePresence, motion } from "framer-motion";
+import { useFetch } from "@/utils/hook";
 
-const FETCH_QUERY = gql`
-  query($id: ID) {
-    artwork(where: { id: $id }) {
-      id
-      title
-      desc
-      categories {
-        id
-        name
-      }
-      images {
-        id
-        image {
-          publicUrl
-        }
-      }
-      name
-      role
-      platform
-      url_link
-      createdAt
-    }
-  }
-`;
+
+const BACKEND_URI = process.env.NEXT_PUBLIC_API_URI;
 
 const ease = [.16, 1, .3, 1];
 
@@ -49,9 +28,7 @@ const IMAGES_LIMIT = 3;
 export default function Project() {
   const { id } = useParams();
 
-  const { loading, error, data } = useQuery<QueryResult>(FETCH_QUERY, { 
-    variables: { id }
-  });
+  const { loading, error, data, refetch } = useFetch<QueryResult>(`${BACKEND_URI}/robert/artwork/${id}`);
 
   const [startImageIndex, setStartImageIndex] = useState(0);
   const endImageIndex = useMemo(() => startImageIndex + IMAGES_LIMIT, [startImageIndex]);
@@ -73,7 +50,7 @@ export default function Project() {
   }
 
   return (
-    <FetchHandler loading={loading} error={error}>
+    <FetchHandler loading={loading} error={Boolean(error)} refetch={refetch}>
         <div className="min-h-screen max-w-[var(--max-width)] m-auto">
           <ImageViewer 
             currentImageIndex={currentImageIndex} 
@@ -90,9 +67,9 @@ export default function Project() {
                           ?.artwork
                           ?.images
                           ?.slice(startImageIndex, endImageIndex)
-                          ?.map(({ id, image }, index) => (
+                          ?.map(({ _id, image }, index) => (
                             <motion.li 
-                              key={id} 
+                              key={_id} 
                               initial={{ scale: .5, opacity: 0 }} 
                               animate={{ scale: 1, opacity: 1 }} 
                               exit={{ scale: .5, opacity: 1 }}
@@ -135,8 +112,8 @@ export default function Project() {
                         <p className="flex gap-1 flex-wrap text-sm text-gray-600 dark:text-white/50">
                           <span>Categories — </span>
                           {
-                            data?.artwork?.categories.map(({ id, name }, index) => (
-                              <Link href={`/artworks?categories=${id}`} key={id} className="hover:underline">
+                            data?.artwork?.categories.map(({ _id, name }, index) => (
+                              <Link href={`/artworks?categories=${_id}`} key={_id} className="hover:underline">
                                 {name}{index < data?.artwork?.categories.length - 1 ? "," : ""}
                               </Link>
                             ))
