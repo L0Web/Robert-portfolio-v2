@@ -1,9 +1,7 @@
-import { QueryResult } from "@/types";
-import { ApolloQueryResult, OperationVariables } from "@apollo/client";
 import { VscRefresh } from "react-icons/vsc";
 
 
-export default function ErrorFetching({ text, refetch }: { text: string; refetch: ((variables?: Partial<OperationVariables> | undefined) => Promise<ApolloQueryResult<QueryResult>>) | undefined }) {
+export default function ErrorFetching({ text, refetch }: { text: string; refetch: (() => void) | undefined }) {
     return (
         <div className="flex flex-col items-center justify-center">
             <h3 className="text-[4rem] font-semibold text-gray-500 dark:text-white/80">Oops!</h3>
