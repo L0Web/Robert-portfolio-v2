@@ -54,7 +54,7 @@ export default function About() {
                                                 text
                                                     .replace("\n", " _space_ ")
                                                     .split(" ")
-                                                    .map((characters, index) => (
+                                                    .map((characters) => (
                                                         characters.includes('_space_') ?
                                                             <>
                                                             <br key={generateId()} />
