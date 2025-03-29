@@ -1,24 +1,19 @@
 "use client";
+import { Suspense, useMemo, useState } from "react";
+import Link from "next/link";
 
 import { QueryResult } from "@/types";
-import { ApolloQueryResult, gql, OperationVariables, useQuery } from "@apollo/client";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useMemo, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { FiChevronDown } from "react-icons/fi";
-import Category from "./Category";
-import CategoryAlt from "./CategoryAlt";
-import Link from "next/link";
 import { VscRefresh } from "react-icons/vsc";
 
-const FETCH_QUERY = gql`
-    query {
-        categories {
-            id
-            name
-        }
-    }
-`;
+import Category from "./Category";
+import CategoryAlt from "./CategoryAlt";
+import { useFetch } from "@/utils/hook";
+
+
+const BACKEND_URI = process.env.NEXT_PUBLIC_API_URI;
 
 function LoadingCategories() {
     return (
@@ -33,10 +28,10 @@ function LoadingCategories() {
     )
 };
 
-function Error ({ refresh }: { refresh: (variables?: Partial<OperationVariables> | undefined) => Promise<ApolloQueryResult<QueryResult>>; }) {
+function Error ({ refetch }: { refetch: () => void; }) {
     return (
         <div className="flex items-center justify-center">
-            <button onClick={refresh} className="h-10 flex gap-2 items-center justify-center px-6 rounded-full border border-red-400 dark:bg-red-800/50 dark:border-transparent text-red-500 dark:text-red-200 hover:bg-red-500 hover:border-red-500 hover:text-white">
+            <button onClick={refetch} className="h-10 flex gap-2 items-center justify-center px-6 rounded-full border border-red-400 dark:bg-red-800/50 dark:border-transparent text-red-500 dark:text-red-200 hover:bg-red-500 hover:border-red-500 hover:text-white">
                 <VscRefresh size={16} />
                 <span className="text-sm tracking-tight">Retry</span>
             </button>
@@ -49,10 +44,10 @@ function ArtworkCategories() {
     const selectedCategories = useMemo(() => searchParams.get('categories') || "", [searchParams]);
     const [showMore, setShowMore] = useState(false);
 
-    const { loading, error, data, refetch } = useQuery<QueryResult>(FETCH_QUERY);
+    const { loading, error, data, refetch } = useFetch<QueryResult>(`${BACKEND_URI}/robert/categories`);
 
-    if(loading) return <LoadingCategories />
-    else if(error) return <Error refresh={refetch} />
+    if (loading) return <LoadingCategories />
+    else if (error) return <Error refetch={refetch} />
     else return (
         <div className="relative">
             <ul className="w-fit flex gap-1 h-10 sm:h-8 lg:h-10 group-has-[.carousel:hover]:opacity-0 group-has-[.carousel:hover]:delay-200 transition-opacity duration-300 ease-expo rounded-full p-[2px] lg:p-1 sm:border sm:border-gray-400/60 sm:dark:border-white/20">
@@ -69,10 +64,10 @@ function ArtworkCategories() {
                     data
                         ?.categories
                         ?.slice()
-                        ?.sort((category) => selectedCategories.includes(category.id) ? -1 : 1)
+                        ?.sort((category) => selectedCategories.includes(category._id) ? -1 : 1)
                         ?.slice(0, 2)
                         ?.map((category) => (
-                            <li key={category.id} className="hidden sm:block">
+                            <li key={category._id} className="hidden sm:block">
                                 <Category {...category} closeDialog={() => setShowMore(false)} selectedCategories={selectedCategories} />
                             </li>
                         ))
@@ -100,9 +95,9 @@ function ArtworkCategories() {
                             data
                                 ?.categories
                                 ?.slice()
-                                ?.sort((category) => selectedCategories.includes(category.id) ? -1 : 1)
+                                ?.sort((category) => selectedCategories.includes(category._id) ? -1 : 1)
                                 ?.map((category) => (
-                                    <li key={category.id} className="flex-1">
+                                    <li key={category._id} className="flex-1">
                                         <CategoryAlt {...category} closeDialog={() => setShowMore(false)} selectedCategories={selectedCategories} />
                                     </li>
                                 ))
