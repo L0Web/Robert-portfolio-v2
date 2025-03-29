@@ -34,7 +34,7 @@ export function useFetch<Data>(url: string, option?: RequestInit): Result<Data |
         };
 
         fetchData(url);
-    }, [retry]);
+    }, [retry, url, option]);
 
     return { loading, error, data, refetch };
 }
