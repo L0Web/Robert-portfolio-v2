@@ -1,9 +1,7 @@
 
-import { ApolloError, ApolloQueryResult, OperationVariables } from "@apollo/client";
 import ErrorFetching from "./Error";
 import Loading from "./Loading";
 
-import { QueryResult } from "@/types";
 import { useRef } from "react";
 import Empty from "./Empty";
 
@@ -13,10 +11,10 @@ type Props = {
     loading: boolean; 
     loadOnce?: boolean; 
     loadingText?: string; 
-    error: ApolloError | undefined; 
+    error: boolean; 
     errorText?: string; 
     children: React.ReactNode; 
-    refetch?: (variables?: Partial<OperationVariables> | undefined) => Promise<ApolloQueryResult<QueryResult>> 
+    refetch?: (() => void) | undefined
 };
 
 
