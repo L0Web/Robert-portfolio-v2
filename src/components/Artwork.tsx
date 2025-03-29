@@ -7,8 +7,6 @@ import Image from "next/image";
 
 import { motion } from "framer-motion";
 
-import { v4 as generateKey } from "uuid";
-
 import { Artwork as ArtworkType } from "@/types";
 
 import { FiChevronRight, FiChevronLeft } from "react-icons/fi";
@@ -17,7 +15,7 @@ interface ModifiedArtworkType extends ArtworkType {
     isRelated?: boolean;
 };
 
-export default function Artwork({ id, title, categories, images, isRelated }: ModifiedArtworkType) {
+export default function Artwork({ _id, title, categories, images, isRelated }: ModifiedArtworkType) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     
     const nextImage = () => setCurrentImageIndex(currentImageIndex + 1 >= images.length ? currentImageIndex : currentImageIndex + 1);
@@ -34,7 +32,7 @@ export default function Artwork({ id, title, categories, images, isRelated }: Mo
         className="mb-2 w-full h-auto ease-expo transition-opaicity duration-500"
       >
         <Link 
-          href={`/artworks/artwork/${id}`} 
+          href={`/artworks/artwork/${_id}`} 
           onClick={(event) => (event.target as HTMLElement)?.classList?.contains('image-btn') && event.preventDefault()} 
           className="flex flex-col gap-1"
         >
@@ -49,9 +47,9 @@ export default function Artwork({ id, title, categories, images, isRelated }: Mo
               />
               <div className="absolute top-0 left-0 w-full h-full">
                 {
-                  images.slice(1,).map(({ image }, index) => (
+                  images.slice(1,).map(({ _id, image }, index) => (
                     <div 
-                      key={generateKey()}
+                      key={_id}
                       style={{ transform: `translateX(${Math.max(0, (-currentImageIndex + (index + 1)) * 100)}%)` }}
                       className="absolute top-0 left-0 w-full h-full transition-transform ease-expo duration-500"
                     >
