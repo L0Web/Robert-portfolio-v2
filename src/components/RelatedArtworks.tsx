@@ -3,14 +3,14 @@
 import Artwork from "./Artwork";
 import FetchHandler from "./LoadingAndErrorContainer";
 
-import { Category, QueryResult } from "@/types";
+import { QueryResult } from "@/types";
 import { useFetch } from "@/utils/hook";
 
 
 const BACKEND_URI = process.env.NEXT_PUBLIC_API_URI;
 
-export default function RelatedArtworks({ id, categories }: { id: string | string[] | undefined; categories: Category[] }) {
-    const { loading, error, data } = useFetch<QueryResult>(`${BACKEND_URI}/robert/artworks/related/${id}?filter=${categories?.join(" ")}`);
+export default function RelatedArtworks({ id }: { id: string | string[] | undefined }) {
+    const { loading, error, data } = useFetch<QueryResult>(`${BACKEND_URI}/robert/artworks/related/${id}`);
 
     return (
         <FetchHandler loading={loading} error={Boolean(error)}>
