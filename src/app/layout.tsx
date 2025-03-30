@@ -51,7 +51,7 @@ export default function RootLayout({
       </head>
       <body
         style={{ '--max-width': '2048px' } as React.CSSProperties } 
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gray-200 dark:bg-[#202020] transition-[background-color] ease-expo duration-300`}
+        className={`${geistSans.variable} ${geistMono.variable} font-geist antialiased min-h-screen bg-gray-200 dark:bg-[#202020] transition-[background-color] ease-expo duration-300`}
       >
         <GlobalLoadingContextProvider>
           <Header theme={theme} toggleTheme={toggleTheme} />
