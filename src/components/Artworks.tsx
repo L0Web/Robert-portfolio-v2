@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useContext, useEffect, useMemo, useState } from "react";
+import { Suspense, useContext, useEffect, useMemo, useRef, useState } from "react";
 
 import FetchHandler from "./LoadingAndErrorContainer";
 import Artwork from "./Artwork";
@@ -17,6 +17,7 @@ const BACKEND_URI = process.env.NEXT_PUBLIC_API_URI;
 
 function Artworks() {
   const limit = 10;
+  const [loadOnce, setLoadOnce] = useState(false);
 
   const searchParams = useSearchParams();
   const { isLoadingGlobally, startLoading, endLoading } = useContext(globalLoadingContext);
@@ -24,26 +25,37 @@ function Artworks() {
   const categoriesFilter = useMemo(() => searchParams.get("categories"), [searchParams]);
 
   const [page, setPage] = useState(0);
-  const skip = useMemo(() => limit * page, [page]);
+  const prevArtworks = useRef<ArtworkType[]>([]);
 
   const { loading, error, data, refetch } = useFetch<QueryResult>(`${BACKEND_URI}/robert/artworks?${limit}&page=${page}&filter=${categoriesFilter ? categoriesFilter : ''}`);
 
-  const [prevArtworks, setPrevArtworks] = useState<ArtworkType[]>([]);
-  const prevArtworkIds = useMemo(() => prevArtworks.map(({ _id }) => _id), [prevArtworks]);
-  const artworks = useMemo<ArtworkType[]>(() => [
-    ...prevArtworks, 
-    ...(
-        data
-          ?.artworks
-          ?.filter(({ _id }) => !prevArtworkIds.includes(_id)) || []
-    )
-  ], [data, prevArtworks, prevArtworkIds]);
+  const artworks = useMemo<ArtworkType[]>(() => {
+    if(page <= 0) prevArtworks.current = [];
+
+    const prevArtworkIds = prevArtworks.current.map(({ _id }) => _id);
+    const filteredFetchedData = data?.artworks ? data?.artworks?.filter(({ _id }) => !prevArtworkIds.includes(_id)) : [];
+    prevArtworks.current = [
+      ...prevArtworks.current, 
+      ...filteredFetchedData
+    ];
+
+    return prevArtworks.current;
+  }, [data, page, prevArtworks])
 
   const triggerNextPageFetch = () => {
-    const triggerFetch = !loading && (skip + limit) < Number(data?.artworksCount);
+    const triggerFetch = !loading && (limit * (page + 1)) < Number(data?.total);
     if(!triggerFetch) return;
     setPage(page + 1);
   };
+
+  useEffect(() => { 
+    if(!loading) setLoadOnce(true);
+  }, [loading]);
+
+  useEffect(() => {
+    setPage(0);
+    setLoadOnce(false);
+  }, [categoriesFilter]);
 
   useEffect(() => {
     if(!loading && isLoadingGlobally) endLoading();
@@ -51,26 +63,14 @@ function Artworks() {
   }, [isLoadingGlobally, loading, endLoading, startLoading]);
 
   useEffect(() => {
-    setPage(/\D/.test(String(searchParams.get('page'))) ? 0 : Number(searchParams.get('page')))
+    setPage(Number(searchParams.get('page')) >= 0 ? Number(searchParams.get('page')) : 0);
   }, [searchParams]);
-
-  useEffect(() => {
-    setPage(0);
-    setPrevArtworks([]);
-  }, [categoriesFilter]);
-
-  useEffect(() => {
-    if(!data?.artworks?.length || data?.artworks?.some(({ _id }) => prevArtworkIds.includes(_id))) return;
-
-    const newValues = [...prevArtworks, ...data.artworks];
-    setPrevArtworks(newValues);
-  }, [data, prevArtworks, prevArtworkIds]);
   
   return (
     <FetchHandler 
-      isEmpty={Boolean(!data?.artworks?.length && typeof data?.artworks?.length === 'number')} 
-      loading={loading} 
-      loadOnce={true} 
+      isEmpty={artworks.length < 1} 
+      loading={loading}
+      loadOnce={loadOnce} 
       error={Boolean(error)} 
       refetch={refetch}
     >
