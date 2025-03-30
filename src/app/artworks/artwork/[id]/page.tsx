@@ -159,7 +159,7 @@ export default function Project() {
                     </div>
                 </div>
             </section>
-            <RelatedArtworks id={id} categories={data?.artwork?.categories || []} />
+            <RelatedArtworks id={id} />
         </div>
       </FetchHandler>
     )
