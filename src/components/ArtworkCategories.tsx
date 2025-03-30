@@ -50,7 +50,7 @@ function ArtworkCategories() {
     else if (error) return <Error refetch={refetch} />
     else return (
         <div className="relative">
-            <ul className="w-fit flex gap-1 h-10 sm:h-8 lg:h-10 group-has-[.carousel:hover]:opacity-0 group-has-[.carousel:hover]:delay-200 transition-opacity duration-300 ease-expo rounded-full p-[2px] lg:p-1 sm:border sm:border-gray-400/60 sm:dark:border-white/20">
+            <ul className="w-fit flex gap-1 h-10 sm:h-8 lg:h-10 group-has-[.carousel:hover]:opacity-0 group-has-[.carousel:hover]:delay-200 transition-opacity duration-300 ease-expo rounded-full p-[2px] lg:p-1 sm:border sm:border-gray-300/50 sm:dark:border-white/20">
                 <li className="hidden sm:block">
                     <Link 
                         href="/artworks"
@@ -73,20 +73,20 @@ function ArtworkCategories() {
                         ))
                 }
                 <li className="flex">
-                    <button onClick={() => setShowMore(!showMore)}  className="flex text-black dark:text-white/60 dark:hover:text-white/80">
-                        <span className="border flex items-center justify-center h-full rounded-full border-gray-400/60 dark:border-white/20 px-3">
+                    <button onClick={() => setShowMore(!showMore)}  className="group flex text-black dark:text-white/80">
+                        <span className="flex items-center justify-center h-full rounded-full px-3 bg-gray-300/70 dark:bg-white/20 group-hover:bg-gray-300/50 dark:group-hover:bg-white/10">
                             <span className="hidden sm:block text-xs whitespace-nowrap">{showMore ? 'Less Categories' : 'More Categories'}</span>
                             <span className="block sm:hidden text-xs whitespace-nowrap px-2">Categories</span>
                         </span>
-                        <span className={`${showMore ? 'rotate-180' : ''} transition-transform ease-expo duration-300 h-full aspect-square rounded-full border border-gray-400/60 dark:border-white/20 flex items-center justify-center`}>
+                        <span className={`${showMore ? 'rotate-180' : ''} transition-transform ease-expo duration-300 h-full aspect-square rounded-full bg-gray-300/70 dark:bg-white/20 flex items-center justify-center group-hover:bg-gray-300/50 dark:group-hover:bg-white/10`}>
                             <FiChevronDown size={14} />
                         </span>
                     </button>
                 </li>
             </ul>
-            <div className={`${showMore ? '' : 'scale-y-50 scale-x-75 opacity-0'} origin-top transition-[transform,_opacity] ease-expo duration-500 absolute top-[calc(100%_+_6px)] left-1/2 -translate-x-1/2 w-fit min-w-full rounded-[20px] bg-gray-200 dark:bg-[#202020] border border-gray-400/60 dark:border-white/20`}>
+            <div className={`${showMore ? '' : 'scale-y-50 scale-x-75 opacity-0'} origin-top transition-[transform,_opacity] ease-expo duration-500 absolute top-[calc(100%_+_6px)] left-1/2 -translate-x-1/2 w-fit min-w-full rounded-[20px] bg-gray-200 dark:bg-[#202020] border border-gray-300/50 dark:border-white/20`}>
                 <div className={`${showMore ? 'delay-200' : 'opacity-0'} origin-top transition-[opacity] ease-expo duration-500 flex flex-col gap-4 p-4`}>
-                    <span className="hidden sm:flex items-center gap-2 rounded-full px-2 bg-gray-300 dark:bg-white/10 text-gray-600 dark:text-white/50">
+                    <span className="hidden sm:flex items-center gap-2 rounded-full px-2 bg-gray-300/30 dark:bg-white/10 text-gray-600 dark:text-white/50">
                         <BiSearch size={16} />
                         <input type="text" placeholder="Search categories..." className="flex-1 bg-transparent focus:outline-none h-8 text-xs tracking-tight placeholder:text-gray-400 dark:placeholder-white/40" />
                     </span>
