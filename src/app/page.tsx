@@ -49,12 +49,7 @@ export default function Home() {
                     </div>
                     <span className="block overflow-hidden">
                       <span className="text-[.75rem] text-black/60 dark:text-white/50 block translate-y-full group-hover/child-1:translate-y-0 transition-transform duration-500 ease-expo">
-                        {
-                          categories.map(({ name }) => name).slice(0, 3).join(', ')
-                        }
-                        {
-                          categories.length > 3 ? '...' : null
-                        }
+                        {categories}
                       </span>
                     </span>
                   </Link>
