@@ -21,7 +21,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
                     initial={{ clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)' }} 
                     animate={{ clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)' }} 
                     transition={{ duration: 1, ease: EASE }}
-                    className="fixed top-0 left-0 pointer-events-none bg-gray-200 dark:bg-[#202020] w-screen h-screen z-[99]" 
+                    className="fixed top-0 left-0 pointer-events-none bg-gray-200 dark:bg-[#202020] w-full h-screen z-[99]" 
                 />
                 {children}
             </motion.div>
