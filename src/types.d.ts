@@ -43,7 +43,7 @@ export interface Artwork {
     _id: string;
     title: string;
     desc?: string;
-    categories: Category[];
+    categories: Category[] & string[];
     images: ArtworkImage[];
     name?: string;
     role?: string;
@@ -60,10 +60,6 @@ export type QueryResult = {
     abouts: About[];
     socials: Social[];
     profilePicture: ArtworkImage;
-    artworksCount: number;
-    categoriesCount: number;
-    aboutsCount: number;
-    socialsCount: number;
     profilePicture: ProfilePicture;
     introText: IntroText;
     limit: number;
